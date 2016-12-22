@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/kisielk/gotool"
-	"github.com/richardwilkes/errcheck/internal/errcheck"
+	"github.com/richardwilkes/errchk/internal/errchk"
 )
 
 const (
@@ -83,7 +83,7 @@ func (f *tagsFlag) Set(s string) error {
 
 var dotStar = regexp.MustCompile(".*")
 
-func reportUncheckedErrors(e *errcheck.UncheckedErrors) {
+func reportUncheckedErrors(e *errchk.UncheckedErrors) {
 	wd, err := os.Getwd()
 	if err != nil {
 		wd = ""
@@ -103,17 +103,17 @@ func reportUncheckedErrors(e *errcheck.UncheckedErrors) {
 func mainCmd(args []string) int {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	checker := errcheck.NewChecker()
+	checker := errchk.NewChecker()
 	paths, err := parseFlags(checker, args)
 	if err != exitCodeOk {
 		return err
 	}
 
 	if err := checker.CheckPackages(paths...); err != nil {
-		if e, ok := err.(*errcheck.UncheckedErrors); ok {
+		if e, ok := err.(*errchk.UncheckedErrors); ok {
 			reportUncheckedErrors(e)
 			return exitUncheckedError
-		} else if err == errcheck.ErrNoGoFiles {
+		} else if err == errchk.ErrNoGoFiles {
 			fmt.Fprintln(os.Stderr, err)
 			return exitCodeOk
 		}
@@ -123,7 +123,7 @@ func mainCmd(args []string) int {
 	return exitCodeOk
 }
 
-func parseFlags(checker *errcheck.Checker, args []string) ([]string, int) {
+func parseFlags(checker *errchk.Checker, args []string) ([]string, int) {
 	flags := flag.NewFlagSet(args[0], flag.ContinueOnError)
 	flags.BoolVar(&checker.Blank, "blank", false, "if true, check for errors assigned to blank identifier")
 	flags.BoolVar(&checker.Asserts, "asserts", false, "if true, check for ignored type assertion results")

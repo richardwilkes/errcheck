@@ -1,7 +1,7 @@
-// Package errcheck is the library used to implement the errcheck command-line tool.
+// Package errchk is the library used to implement the errchk command-line tool.
 //
 // Note: The API of this package has not been finalized and may change at any point.
-package errcheck
+package errchk
 
 import (
 	"bufio"
@@ -210,7 +210,7 @@ func (c *Checker) CheckPackages(paths ...string) error {
 	return nil
 }
 
-// visitor implements the errcheck algorithm
+// visitor implements the errchk algorithm
 type visitor struct {
 	prog    *loader.Program
 	pkg     *loader.PackageInfo

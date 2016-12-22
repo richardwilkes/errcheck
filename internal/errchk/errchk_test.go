@@ -1,4 +1,4 @@
-package errcheck
+package errchk
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ import (
 	"testing"
 )
 
-const testPackage = "github.com/richardwilkes/errcheck/testdata"
+const testPackage = "github.com/richardwilkes/errchk/testdata"
 
 var (
 	uncheckedMarkers map[marker]bool
@@ -144,7 +144,7 @@ func TestIgnore(t *testing.T) {
 		// ignoring vendored import works
 		{
 			ignore: map[string]*regexp.Regexp{
-				path.Join("github.com/richardwilkes/errcheck/internal/errcheck", testVendorDir, "vendor/github.com/testlog"): regexp.MustCompile("Info"),
+				path.Join("github.com/richardwilkes/errchk/internal/errchk", testVendorDir, "vendor/github.com/testlog"): regexp.MustCompile("Info"),
 			},
 		},
 		// non-vendored path ignores vendored import
@@ -158,7 +158,7 @@ func TestIgnore(t *testing.T) {
 	for i, currCase := range cases {
 		checker := NewChecker()
 		checker.Ignore = currCase.ignore
-		err := checker.CheckPackages(path.Join("github.com/richardwilkes/errcheck/internal/errcheck", testVendorDir))
+		err := checker.CheckPackages(path.Join("github.com/richardwilkes/errchk/internal/errchk", testVendorDir))
 
 		if currCase.numExpectedErrs == 0 {
 			if err != nil {

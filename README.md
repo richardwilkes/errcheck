@@ -1,6 +1,6 @@
-# errcheck
+# errchk
 
-errcheck is a program for checking for unchecked errors in go programs.
+errchk is a program for checking for unchecked errors in go programs.
 
 This is a modified version of https://github.com/kisielk/errcheck with the following changes:
 
@@ -9,25 +9,25 @@ This is a modified version of https://github.com/kisielk/errcheck with the follo
 
 ## Install
 
-    go get -u github.com/richardwilkes/errcheck
+    go get -u github.com/richardwilkes/errchk
 
-errcheck requires Go 1.6 or newer and depends on the package go/loader from the golang.org/x/tools repository.
+errchk requires Go 1.6 or newer and depends on the package go/loader from the golang.org/x/tools repository.
 
 ## Use
 
 For basic usage, just give the package path of interest as the first argument:
 
-    errcheck github.com/richardwilkes/errcheck/testdata
+    errchk github.com/richardwilkes/errchk/testdata
 
 To check all packages beneath the current directory:
 
-    errcheck ./...
+    errchk ./...
 
 Or check all packages in your $GOPATH and $GOROOT:
 
-    errcheck all
+    errchk all
 
-errcheck also recognizes the following command-line options:
+errchk also recognizes the following command-line options:
 
 The `-tags` flag takes a space-separated list of build tags, just like `go
 build`. If you are using any custom build tags in your code base, you may need
@@ -45,7 +45,7 @@ blank identifier. It takes no arguments.
 Use the `-exclude` flag to specify a path to a file containing a list of functions to
 be excluded.
 
-    errcheck -exclude errcheck_excludes.txt path/to/package
+    errchk -exclude errchk_excludes.txt path/to/package
 
 The file should contain one function signature per line. The format for function signatures is
 `package.FunctionName` while for methods it's `(package.Receiver).MethodName` for value receivers
@@ -68,20 +68,20 @@ The package may be omitted to have the regex apply to all packages.
 
 For example, you may wish to ignore common operations like Read and Write:
 
-    errcheck -ignore '[rR]ead|[wW]rite' path/to/package
+    errchk -ignore '[rR]ead|[wW]rite' path/to/package
 
 or you may wish to ignore common functions like the `print` variants in `fmt`:
 
-    errcheck -ignore 'fmt:[FS]?[Pp]rint*' path/to/package
+    errchk -ignore 'fmt:[FS]?[Pp]rint*' path/to/package
 
 The `-ignorepkg` flag takes a comma-separated list of package import paths
 to ignore:
 
-    errcheck -ignorepkg 'fmt,encoding/binary' path/to/package
+    errchk -ignorepkg 'fmt,encoding/binary' path/to/package
 
 Note that this is equivalent to:
 
-    errcheck -ignore 'fmt:.*,encoding/binary:.*' path/to/package
+    errchk -ignore 'fmt:.*,encoding/binary:.*' path/to/package
 
 If a regex is provided for a package `pkg` via `-ignore`, and `pkg` also appears
 in the list of packages passed to `-ignorepkg`, the latter takes precedence;
@@ -90,36 +90,23 @@ that is, all functions within `pkg` will be ignored.
 Note that by default the `fmt` package is ignored entirely, unless a regex is
 specified for it. To disable this, specify a regex that matches nothing:
 
-    errcheck -ignore 'fmt:a^' path/to/package
+    errchk -ignore 'fmt:a^' path/to/package
 
 The `-ignoretests` flag disables checking of `_test.go` files. It takes
 no arguments.
 
 ## Cgo
 
-Currently errcheck is unable to check packages that `import "C"` due to limitations
+Currently errchk is unable to check packages that `import "C"` due to limitations
 in the importer.
 
-However, you can use errcheck on packages that depend on those which use cgo. In
+However, you can use errchk on packages that depend on those which use cgo. In
 order for this to work you need to `go install` the cgo dependencies before running
-errcheck on the dependant packages.
+errchk on the dependant packages.
 
 See https://github.com/kisielk/errcheck/issues/16 for more details.
 
 ## Exit Codes
 
-errcheck returns 1 if any problems were found in the checked files.
+errchk returns 1 if any problems were found in the checked files.
 It returns 2 if there were any other failures.
-
-# Editor Integration
-
-## Emacs
-
-[go-errcheck.el](https://github.com/dominikh/go-errcheck.el)
-integrates errcheck with Emacs by providing a `go-errcheck` command
-and customizable variables to automatically pass flags to errcheck.
-
-## Vim
-
-[vim-go](https://github.com/fatih/vim-go) can run errcheck via both its `:GoErrCheck`
-and `:GoMetaLinter` commands.
