@@ -23,7 +23,7 @@ import (
 const (
 	errIgnored                    = "error ignored"
 	errAssignedToBlankIdentifier  = "error assigned to blank identifier"
-	errIgnoredTypeAssertionResult = "error ignored type assertion results"
+	errIgnoredTypeAssertionResult = "ignored type assertion results"
 )
 
 var errorType *types.Interface

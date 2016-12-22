@@ -6,6 +6,7 @@ This is a modified version of https://github.com/kisielk/errcheck with the follo
 
 - Does not traverse vendor directories.
 - Gives a reason why each unchecked error message was produced.
+- Output is now PATH:LINE:COLUMN:SEVERITY:MESSAGE:SOURCE.
 - Renamed to allow both to be installed in $GOPATH/bin/.
 
 ## Install

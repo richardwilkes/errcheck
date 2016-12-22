@@ -96,7 +96,7 @@ func reportUncheckedErrors(e *errchk.UncheckedErrors) {
 				pos = newPos
 			}
 		}
-		fmt.Printf("%s:\t%s\t%s\n", pos, uncheckedError.Reason, uncheckedError.Line)
+		fmt.Printf("%s:warning:%s:%s\n", pos, uncheckedError.Reason, uncheckedError.Line)
 	}
 }
 
