@@ -174,8 +174,6 @@ func parseFlags(checker *errcheck.Checker, args []string) ([]string, int) {
 	}
 	checker.Ignore = ignore
 
-	fmt.Println("$GOPATH = " + os.Getenv("GOPATH"))
-
 	// ImportPaths normalizes paths and expands '...'
 	paths := gotool.ImportPaths(flags.Args())
 
