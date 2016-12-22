@@ -2,8 +2,10 @@
 
 errcheck is a program for checking for unchecked errors in go programs.
 
-This is a modified version of https://github.com/kisielk/errcheck which does not traverse vendor
-directories.
+This is a modified version of https://github.com/kisielk/errcheck with the following changes:
+
+- Does not traverse vendor directories.
+- Gives a reason why each unchecked error message was produced.
 
 ## Install
 
