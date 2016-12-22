@@ -2,11 +2,12 @@
 
 errcheck is a program for checking for unchecked errors in go programs.
 
-[![Build Status](https://travis-ci.org/kisielk/errcheck.png?branch=master)](https://travis-ci.org/kisielk/errcheck)
+This is a modified version of https://github.com/kisielk/errcheck which does not traverse vendor
+directories.
 
 ## Install
 
-    go get -u github.com/kisielk/errcheck
+    go get -u github.com/richardwilkes/errcheck
 
 errcheck requires Go 1.6 or newer and depends on the package go/loader from the golang.org/x/tools repository.
 
@@ -14,7 +15,7 @@ errcheck requires Go 1.6 or newer and depends on the package go/loader from the 
 
 For basic usage, just give the package path of interest as the first argument:
 
-    errcheck github.com/kisielk/errcheck/testdata
+    errcheck github.com/richardwilkes/errcheck/testdata
 
 To check all packages beneath the current directory:
 

@@ -10,8 +10,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/kisielk/errcheck/internal/errcheck"
 	"github.com/kisielk/gotool"
+	"github.com/richardwilkes/errcheck/internal/errcheck"
 )
 
 const (
@@ -174,8 +174,20 @@ func parseFlags(checker *errcheck.Checker, args []string) ([]string, int) {
 	}
 	checker.Ignore = ignore
 
+	fmt.Println("$GOPATH = " + os.Getenv("GOPATH"))
+
 	// ImportPaths normalizes paths and expands '...'
-	return gotool.ImportPaths(flags.Args()), exitCodeOk
+	paths := gotool.ImportPaths(flags.Args())
+
+	// Strip vendored paths
+	updatedPaths := make([]string, 0, len(paths))
+	for _, path := range paths {
+		if !strings.HasPrefix(path, "vendor/") && !strings.Contains(path, "/vendor/") {
+			updatedPaths = append(updatedPaths, path)
+		}
+	}
+
+	return updatedPaths, exitCodeOk
 }
 
 func main() {
