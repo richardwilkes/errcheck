@@ -126,6 +126,9 @@ func NewChecker() *Checker {
 func (c *Checker) SetExclude(l map[string]bool) {
 	// Default exclude for stdlib functions
 	c.exclude = map[string]bool{
+		"crypto/rand.Read":         true,
+		"(*crypto/rand.Rand).Read": true,
+
 		"math/rand.Read":         true,
 		"(*math/rand.Rand).Read": true,
 
