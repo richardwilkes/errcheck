@@ -1,3 +1,5 @@
+# These changes are obsolete and superceded by changes made in the original. Please use it instead.
+
 # errchk
 
 errchk is a program for checking for unchecked errors in go programs.
